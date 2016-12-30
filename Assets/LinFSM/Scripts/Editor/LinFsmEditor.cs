@@ -222,6 +222,7 @@ public class LinFsmEditor : EditorWindow
             if (mouseOverTransition)
             {
                 selectTransition = mouseOverTransition;
+                Selection.objects = new Object[] { selectTransition };
             }
             else
             {
@@ -408,7 +409,9 @@ public class LinFsmEditor : EditorWindow
             FSMNode node = Nodes[i];
             foreach (var transition in Nodes[i].Transitions)
             {
-                if (NodeUiUtil.IsPosOnLine(OffSetPos(node.PosRect.center), OffSetPos(transition.TagetState.position),
+                Vector3 offsetStart, offsetEnd;
+                NodeUiUtil.GetOffetTransitionPoints(node.PosRect.center, transition.TagetState.position,out offsetStart,out offsetEnd);
+                if (NodeUiUtil.IsPosOnLine(OffSetPos(offsetStart), OffSetPos(offsetEnd),
                     mousePosition))
                 {
                     return transition;

@@ -16,8 +16,7 @@ public class NodeUiUtil : MonoBehaviour
         Vector3 cross = Vector3.Cross((start - end).normalized, Vector3.forward);
         if (offset)
         {
-            start = start + cross * 6;
-            end = end + cross * 6;
+            GetOffetTransitionPoints(start, end, out start, out end);
         }
 
         Texture2D tex = (Texture2D)UnityEditor.Graphs.Styles.connectionTexture.image;
@@ -37,6 +36,20 @@ public class NodeUiUtil : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 注意这里要跟上面函数的画连线的算法对上
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <param name="outStart"></param>
+    /// <param name="outEnd"></param>
+    public static void GetOffetTransitionPoints(Vector3 start, Vector3 end, out Vector3 outStart, out Vector3 outEnd)
+    {
+        Vector3 cross = Vector3.Cross((start - end).normalized, Vector3.forward);
+        outStart = start + cross * 6;
+        outEnd = end + cross * 6;
+        
+    }
     public static  void DrawArrow(Color color, Vector3 cross, Vector3 direction, Vector3 center, float size)
     {
        
